@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Scheduler Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .timeline { overflow: visible; }
+    .timeline-block { min-width: 0; padding: 0 3px; font-size: clamp(8px, 1vw, 12px); white-space: nowrap; }
+    .run-button.complete { background: #2b8a63; }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">CS</span><span><strong>CPU Scheduler</strong><small>Studio</small></span></div>
+      <div class="sidebar-copy"><p class="eyebrow">Simulation lab</p><h1>Make the queue visible.</h1><p>Explore how scheduling policy changes the shape of work, waiting, and response.</p></div>
+      <div class="sidebar-note"><span class="status-dot"></span><div><strong>Ready to simulate</strong><small>All systems operational</small></div></div>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><div><p class="eyebrow">Operating systems / scheduling</p><h2>Scheduler overview</h2></div><button class="ghost-button" id="reset-button" type="button">Reset scenario</button></header>
+      <section class="workspace-grid">
+        <section class="panel input-panel"><div class="panel-heading"><div><p class="eyebrow">01 / Workload</p><h3>Process queue</h3></div><span class="count-pill" id="process-count">4 processes</span></div><p class="panel-description">Define when each process arrives and how much CPU time it needs.</p><div class="process-table-wrap"><table class="process-table"><thead><tr><th>Process</th><th>Arrival</th><th>Burst</th><th>Priority</th><th></th></tr></thead><tbody id="process-rows"></tbody></table></div><div class="input-footer"><button class="text-button" id="add-process" type="button"><span>+</span> Add process</button><label class="quantum-field">RR quantum <input id="quantum" type="number" min="1" value="2"></label></div></section>
+        <section class="panel run-panel"><div class="panel-heading"><div><p class="eyebrow">02 / Policy</p><h3>Choose a scheduler</h3></div></div><div class="algorithm-list" role="radiogroup" aria-label="Scheduling algorithm">
+          <label class="algorithm-option selected"><input type="radio" name="algorithm" value="FCFS" checked><span class="algorithm-icon">→</span><span><strong>FCFS</strong><small>First Come, First Served</small></span><span class="radio-dot"></span></label>
+          <label class="algorithm-option"><input type="radio" name="algorithm" value="SJF"><span class="algorithm-icon">⌁</span><span><strong>SJF</strong><small>Shortest Job First</small></span><span class="radio-dot"></span></label>
+          <label class="algorithm-option"><input type="radio" name="algorithm" value="Priority"><span class="algorithm-icon">★</span><span><strong>Priority</strong><small>Lowest number runs first</small></span><span class="radio-dot"></span></label>
+          <label class="algorithm-option"><input type="radio" name="algorithm" value="Round Robin"><span class="algorithm-icon">↻</span><span><strong>Round Robin</strong><small>Time-sliced and fair</small></span><span class="radio-dot"></span></label>
+        </div><button class="run-button" id="run-button" type="button">Run simulation <span>↗</span></button><p class="run-hint">Results update instantly in your browser.</p></section>
+      </section>
+      <section class="results-section"><div class="section-heading"><div><p class="eyebrow">03 / Analysis</p><h3 id="result-title">FCFS results</h3></div><span class="live-label"><span></span> Live result</span></div><div class="metrics-grid" id="metrics"></div><div class="analysis-grid"><section class="panel timeline-panel"><div class="panel-heading"><div><p class="eyebrow">Execution timeline</p><h3>Gantt chart</h3></div><span class="unit-label">Time units</span></div><div class="timeline" id="timeline"></div></section><section class="panel compare-panel"><div class="panel-heading"><div><p class="eyebrow">At a glance</p><h3>Policy comparison</h3></div></div><div id="comparison"></div></section></div><section class="panel details-panel"><div class="panel-heading"><div><p class="eyebrow">Process detail</p><h3>Performance by process</h3></div><span class="unit-label">Lower is better for wait &amp; response</span></div><div class="detail-table-wrap"><table class="detail-table"><thead><tr><th>Process</th><th>Arrival</th><th>Burst</th><th>Priority</th><th>Complete</th><th>Turnaround</th><th>Waiting</th><th>Response</th></tr></thead><tbody id="detail-rows"></tbody></table></div></section></section>
+      <footer>CPU Scheduler Studio <span>•</span> Built for clear thinking about queues</footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
